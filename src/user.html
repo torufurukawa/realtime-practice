@@ -6,12 +6,12 @@
 </head>
   <body style="margin-top: 10px;">
     <div id="demo" class="container">
-      <h3>User: {{name}}</h3>
+      <h3>User: <span id="name"></span></h3>
 
       <table class="table table-bordered">
         <tbody>
           <tr>
-            <td>A</td><td>B</td><td>C</td>
+            <td id="x">X</td><td id="y">Y</td><td id="z">Z</td>
           <tr>
         </tbody>
       </table>
@@ -37,14 +37,19 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/vue/0.11.0/vue.min.js"></script>
+    <script src="mqttws31.js"></script>
+    <script src="config.js"></script>
+    <script src="common.js"></script>
     <script>
       var name = window.location.hash.substr(1);
-      var demo = new Vue({
-        el: '#demo',
-        data: {
-          name: name
-        }
-      });
+      $("#name").text(name);
+
+      connect(
+        name,
+        function(data){subscribe(function(data){console.log(data.payloadString);});},
+        function(data){console.log('failure'); console.log(data)}
+      );
+
     </script>
   </body>
 </html>
