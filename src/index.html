@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>ちんこ</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+</head>
+  <body style="margin-top: 10px;">
+    <div id="demo" class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <a href="./user.html#alice" class="btn btn-default btn-block">Alice</a>
+        </div>
+        <div class="col-md-4">
+          <a href="./user.html#bob" class="btn btn-default btn-block">Bob</a>
+        </div>
+        <div class="col-md-4">
+          <a href="./operator.html" class="btn btn-default btn-block">Operator</a>
+        </div>
+      </div>
+      <div>{{message}}</div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/vue/0.11.0/vue.min.js"></script>
+    <script>
+      var demo = new Vue({
+        el: '#demo',
+        data: {
+          message: 'chinko'
+        }
+      });
+    </script>
+  </body>
+</html>
