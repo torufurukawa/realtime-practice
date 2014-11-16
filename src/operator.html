@@ -21,17 +21,30 @@
     <script src="config.js"></script>
     <script src="common.js"></script>
     <script>
-      var topic = config.sango_user + "/data";
-      var sango = new Sango(config.sango_server,
-                            config.sango_user, config.sango_pass);
+        var topic = config.sango_user + "/data";
+        var sango = new Sango(config.sango_server,
+                              config.sango_user, config.sango_pass);
+        function updateStatus(status) {
+            sango.publish(topic, status, true);
+            $.each(["x", "y", "z"], function(i, val) {
+                var e = $("#" + val);
+                if (status.toLowerCase() == val) {
+                    e.addClass("btn-primary");
+                    e.removeClass("btn-default");
+                } else {
+                    e.addClass("btn-default");
+                    e.removeClass("btn-primary");
+                }
+            });
+        }
 
-      $("#x").click(function() {sango.publish(topic, "X");});
-      $("#y").click(function() {sango.publish(topic, "Y");});
-      $("#z").click(function() {sango.publish(topic, "Z");});
+        $("#x").click(function() {updateStatus("X");});
+        $("#y").click(function() {updateStatus("Y");});
+        $("#z").click(function() {updateStatus("Z");});
 
-      sango.connect('operator',
-                    function(data){console.log('success'); console.log(data);},
-                    function(data){console.log('failure'); console.log(data);});
+        sango.connect('operator',
+                      function(data){console.log('success'); console.log(data);},
+                      function(data){console.log('failure'); console.log(data);});
     </script>
   </body>
 </html>

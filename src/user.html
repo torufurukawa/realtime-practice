@@ -51,7 +51,16 @@
         sango.connect(
             name,
             function(data) {
-                sango.subscribe(topic, function(data){console.log(data);});
+                sango.subscribe(topic, function(data){
+                    $.each(["x", "y", "z"], function(i, val) {
+                        var e = $("#" + val);
+                        if (data.toLowerCase() == val) {
+                            e.addClass("success");
+                        } else {
+                            e.removeClass("success");
+                        }
+                    });
+                });
             },
             function(data) {console.log('failure'); console.log(data)}
         );
