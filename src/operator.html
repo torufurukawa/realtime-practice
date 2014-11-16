@@ -21,16 +21,17 @@
     <script src="config.js"></script>
     <script src="common.js"></script>
     <script>
-      $("#x").click(function() {publish("X");});
-      $("#y").click(function() {publish("Y");});
-      $("#z").click(function() {publish("Z");});
+      var topic = config.sango_user + "/data";
+      var sango = new Sango(config.sango_server,
+                            config.sango_user, config.sango_pass);
 
-      connect(
-        'operator',
-        function(data){console.log('success'); console.log(data);},
-        function(data){console.log('failure'); console.log(data);}
-      );
+      $("#x").click(function() {sango.publish(topic, "X");});
+      $("#y").click(function() {sango.publish(topic, "Y");});
+      $("#z").click(function() {sango.publish(topic, "Z");});
 
+      sango.connect('operator',
+                    function(data){console.log('success'); console.log(data);},
+                    function(data){console.log('failure'); console.log(data);});
     </script>
   </body>
 </html>

@@ -41,15 +41,20 @@
     <script src="config.js"></script>
     <script src="common.js"></script>
     <script>
-      var name = window.location.hash.substr(1);
-      $("#name").text(name);
+        var topic = config.sango_user + "/data";
 
-      connect(
-        name,
-        function(data){subscribe(function(data){console.log(data.payloadString);});},
-        function(data){console.log('failure'); console.log(data)}
-      );
+        var name = window.location.hash.substr(1);
+        $("#name").text(name);
 
+        var sango = new Sango(config.sango_server,
+                              config.sango_user, config.sango_pass);
+        sango.connect(
+            name,
+            function(data) {
+                sango.subscribe(topic, function(data){console.log(data);});
+            },
+            function(data) {console.log('failure'); console.log(data)}
+        );
     </script>
   </body>
 </html>
