@@ -1,0 +1,12 @@
+<h3>Operator</h3>
+
+<div class="row">
+  <div class="col-md-4" ng-repeat="val in ['X', 'Y', 'Z']">
+    <button
+      class="btn btn-block"
+      ng-class="{'btn-primary': status==val, 'btn-default': status!=val}"
+      ng-click="updateStatus(val)">
+      {{val}}
+    </button>
+  </div>
+</div>
