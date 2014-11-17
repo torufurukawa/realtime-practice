@@ -8,11 +8,14 @@ app.config(['$routeProvider',
     $routeProvider.
       when('/', {
         templateUrl: 'partials/top.html'
-        // ,controller: 'PhoneListCtrl'
       }).
       when('/operator', {
         templateUrl: 'partials/operator.html',
         controller: 'OperatorCtrl'
+      }).
+      when('/@:name', {
+        templateUrl: 'partials/user.html',
+        controller: 'UserCtrl'
       }).
       otherwise({
         redirectTo: '/'
@@ -35,6 +38,33 @@ app.controller('OperatorCtrl', ['$scope', function($scope) {
   $scope.updateStatus = function(status) {
     $scope.sango.publish($scope.topic, status, true);
     $scope.status = status;
+  };
+
+  $scope.init();
+}]);
+
+
+app.controller('UserCtrl', ['$scope', '$routeParams', function($scope, $routeParams) {
+  $scope.init = function() {
+    $scope.name = $routeParams.name;
+
+    $scope.sango = new Sango(config.sango_server,
+                             config.sango_user, config.sango_pass);
+    var scope = $scope;
+    $scope.sango.connect(
+      name,
+      function(data) {
+        var topic = config.sango_user + "/data";
+        $scope.sango.subscribe(topic, function(val){
+          $scope.currentStatus = val;
+          $scope.$apply();
+        });
+      },
+      function(data) {console.log('failure'); console.log(data)});
+
+// var name = window.location.hash.substr(1);
+// $("#name").text(name);
+//
   };
 
   $scope.init();
